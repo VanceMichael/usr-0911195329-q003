@@ -87,6 +87,14 @@ function nextId(state, prefix) {
 export function applyEvent(state, event) {
   switch (event.type) {
     case "snapshot_created": {
+      // 新版本一旦开出，前一草稿版本自动封存：调价只能在新版本上进行，历史版本不可变。
+      if (state.snapshotOrder.length > 0) {
+        const prev = state.snapshots.get(state.snapshotOrder[state.snapshotOrder.length - 1]);
+        if (prev && prev.status === "draft") {
+          prev.status = "sealed";
+          prev.sealedAt = event.at;
+        }
+      }
       state.snapshots.set(event.snapshotId, {
         id: event.snapshotId,
         baseSnapshotId: event.baseSnapshotId,
