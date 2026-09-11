@@ -1,0 +1,1 @@
+import test from "node:test"; import assert from "node:assert/strict"; process.env.NODE_ENV="test"; const {healthPayload}=await import("../src/server.js"); test("health",()=>assert.equal(healthPayload().status,"ok"));

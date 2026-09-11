@@ -1,0 +1,6 @@
+{
+  "service_id": "fuel-impact",
+  "title": "成品油调价影响测算接口",
+  "health_path": "/health",
+  "port": 8080
+}
